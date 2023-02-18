@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A27DC6B3299F852A007523F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27DC6B2299F852A007523F5 /* AppDelegate.swift */; };
 		A27DC6B5299F852A007523F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27DC6B4299F852A007523F5 /* SceneDelegate.swift */; };
-		A27DC6B7299F852A007523F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27DC6B6299F852A007523F5 /* ViewController.swift */; };
+		A27DC6B7299F852A007523F5 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27DC6B6299F852A007523F5 /* WeatherViewController.swift */; };
 		A27DC6BA299F852A007523F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A27DC6B8299F852A007523F5 /* Main.storyboard */; };
 		A27DC6BC299F852E007523F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A27DC6BB299F852E007523F5 /* Assets.xcassets */; };
 		A27DC6BF299F852E007523F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A27DC6BD299F852E007523F5 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		A27DC6AF299F852A007523F5 /* Clima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clima.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A27DC6B2299F852A007523F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A27DC6B4299F852A007523F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A27DC6B6299F852A007523F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A27DC6B6299F852A007523F5 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		A27DC6B9299F852A007523F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A27DC6BB299F852E007523F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A27DC6BE299F852E007523F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,13 +58,37 @@
 			children = (
 				A27DC6B2299F852A007523F5 /* AppDelegate.swift */,
 				A27DC6B4299F852A007523F5 /* SceneDelegate.swift */,
-				A27DC6B6299F852A007523F5 /* ViewController.swift */,
-				A27DC6B8299F852A007523F5 /* Main.storyboard */,
+				A27DC6CC299F9C44007523F5 /* Model */,
+				A27DC6CA299F9C30007523F5 /* View */,
+				A27DC6CB299F9C38007523F5 /* Controlers */,
 				A27DC6BB299F852E007523F5 /* Assets.xcassets */,
 				A27DC6BD299F852E007523F5 /* LaunchScreen.storyboard */,
 				A27DC6C0299F852E007523F5 /* Info.plist */,
 			);
 			path = Clima;
+			sourceTree = "<group>";
+		};
+		A27DC6CA299F9C30007523F5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A27DC6B8299F852A007523F5 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A27DC6CB299F9C38007523F5 /* Controlers */ = {
+			isa = PBXGroup;
+			children = (
+				A27DC6B6299F852A007523F5 /* WeatherViewController.swift */,
+			);
+			path = Controlers;
+			sourceTree = "<group>";
+		};
+		A27DC6CC299F9C44007523F5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A27DC6B7299F852A007523F5 /* ViewController.swift in Sources */,
+				A27DC6B7299F852A007523F5 /* WeatherViewController.swift in Sources */,
 				A27DC6B3299F852A007523F5 /* AppDelegate.swift in Sources */,
 				A27DC6B5299F852A007523F5 /* SceneDelegate.swift in Sources */,
 			);
