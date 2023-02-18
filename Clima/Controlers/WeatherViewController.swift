@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Outlets
     @IBOutlet weak var conditionImageView: UIImageView!
@@ -18,13 +18,41 @@ class WeatherViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
+        
+        searchTextField.delegate = self
     }
-
+    
+    //MARK: - Actions
     @IBAction func searchPressed(_ sender: UIButton) {
         print(searchTextField.text!)
+        searchTextField.endEditing(true)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(searchTextField.text ?? "")
+        searchTextField.endEditing(true)
+        return true
+    }
     
+//    //hiding keyboard func by tapping around
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
+    
+}
+
+//MARK: - Extensions
+//extension for UIViewController to make hiding keyboard by tapping around (can use in every controller)
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
