@@ -9,6 +9,9 @@ import UIKit
 
 class WeatherViewController: UIViewController, UITextFieldDelegate {
     
+    //MARK: - Properties
+    var weatherManager = WeatherManager()
+    
     //MARK: - Outlets
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -25,14 +28,35 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Actions
     @IBAction func searchPressed(_ sender: UIButton) {
-        print(searchTextField.text!)
+        
+        if let city = searchTextField.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
         searchTextField.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(searchTextField.text ?? "")
         searchTextField.endEditing(true)
         return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if searchTextField.text != "" {
+            textField.placeholder = "City name"
+            return true
+        } else {
+            textField.placeholder = "Enter a city name please!"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if let city = searchTextField.text {
+            weatherManager.fetchWeather(cityName: city)
+        }
+        
+        searchTextField.text = ""
     }
     
 //    //hiding keyboard func by tapping around
@@ -43,6 +67,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
 }
 
 //MARK: - Extensions
+
 //extension for UIViewController to make hiding keyboard by tapping around (can use in every controller)
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
