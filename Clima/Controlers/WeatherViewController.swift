@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate {
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
     
     //MARK: - Properties
     var weatherManager = WeatherManager()
@@ -23,6 +23,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
+        weatherManager.delegate = self
         searchTextField.delegate = self
     }
     
@@ -60,11 +61,9 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
         searchTextField.text = ""
     }
     
-//    //hiding keyboard func by tapping around
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.view.endEditing(true)
-//    }
-    
+    func didUpdateWeather(weather: WeatherModel) {
+        print(weather.temperatureString)
+    }
 }
 
 //MARK: - Extensions

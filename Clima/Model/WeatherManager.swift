@@ -7,12 +7,20 @@
 
 import Foundation
 
+//MARK: - Protocols
+protocol WeatherManagerDelegate {
+    func didUpdateWeather(weather: WeatherModel)
+}
+
 struct WeatherManager {
     
-    let weatherVC = WeatherViewController()
-    
+    //MARK: - Properties
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?"
     
+    var delegate: WeatherManagerDelegate?
+    
+    
+    //MARK: - Methods
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)&appid=f66c945a3c108834c9d2a7289fd04cfc&units=metric"
         
@@ -39,7 +47,13 @@ struct WeatherManager {
                 }
                 //unwrapping data with optional binding method
                 if let sаfeData = data {
-                    self.parseJSON(weatherData: sаfeData)
+                    
+                    //creating another const "WeatherModel" type to transfer data through delegate
+                    if let weather = self.parseJSON(weatherData: sаfeData) {
+                        
+                        //delegate method that transport data w/weather parameter
+                        self.delegate?.didUpdateWeather(weather: weather)
+                    }
                 }
             }
             //start the task
@@ -48,7 +62,7 @@ struct WeatherManager {
     }
     
     //decoding JSON format into Swift programm language function
-    func parseJSON(weatherData: Data) {
+    func parseJSON(weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
@@ -56,11 +70,11 @@ struct WeatherManager {
             let temp = decodedData.main.temp
             let name = decodedData.name
             
-            let weather = WeatherModel(condotionID: id, cityName: name, temperature: temp)
-            
-            print(weather.getConditionName(weatherId: id))
+            let weather = WeatherModel(conditionID: id, cityName: name, temperature: temp)
+            return weather
         } catch {
             print(error)
+            return nil
         }
     }
     
