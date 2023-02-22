@@ -13,36 +13,46 @@ struct WeatherManager {
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)&appid=f66c945a3c108834c9d2a7289fd04cfc&units=metric"
         
+        //calling fetching data function using url
         performRequest(urlString: urlString)
-        
     }
     
+    //function that making querry
     func performRequest(urlString: String) {
-        //create url
+        
+        //create url adress of our querry
         if let url = URL(string: urlString) {
             
-            //create session
+            //create a session to make a querry to get data we needed
             let session = URLSession(configuration: .default)
             
-            //create a session task with closure
-            let task = session.dataTask(with: url) { data, response, error in
-                func handle(data: Data?, response: URLResponse?, error: Error?) {
-                    if error != nil {
-                        print(error!)
-                        return
-                    }
-                    if let sаfeData = data {
-                        parseJSON(weatherData: sаfeData)
-                    }
+            //create a session task with closure    input parameters of closure
+            let task = session.dataTask(with: url) { (data, response, error) in
+                
+                //unwrapping error with "not nil" method
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                //unwrapping data with optional binding method
+                if let sаfeData = data {
+                    self.parseJSON(weatherData: sаfeData)
                 }
             }
-            
             //start the task
             task.resume()
         }
     }
     
+    //decoding JSON format into Swift programm language function
     func parseJSON(weatherData: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+            print(decodedData.main.temp)
+        } catch {
+            print(error)
+        }
         
     }
     

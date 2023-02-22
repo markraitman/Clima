@@ -41,7 +41,8 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if searchTextField.text != "" {
+        
+        if textField.text != "" {
             textField.placeholder = "City name"
             return true
         } else {
