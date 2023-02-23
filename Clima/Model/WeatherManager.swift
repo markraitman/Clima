@@ -9,7 +9,8 @@ import Foundation
 
 //MARK: - Protocols
 protocol WeatherManagerDelegate {
-    func didUpdateWeather(weather: WeatherModel)
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel)
+    func didFailWithError(error: Error)
 }
 
 struct WeatherManager {
@@ -25,11 +26,11 @@ struct WeatherManager {
         let urlString = "\(weatherURL)&q=\(cityName)&appid=f66c945a3c108834c9d2a7289fd04cfc&units=metric"
         
         //calling fetching data function using url
-        performRequest(urlString: urlString)
+        performRequest(with: urlString)
     }
     
     //function that making querry
-    func performRequest(urlString: String) {
+    func performRequest(with urlString: String) {
         
         //create url adress of our querry
         if let url = URL(string: urlString) {
@@ -42,17 +43,17 @@ struct WeatherManager {
                 
                 //unwrapping error with "not nil" method
                 if error != nil {
-                    print(error!)
+                    self.delegate?.didFailWithError(error: error!)
                     return
                 }
                 //unwrapping data with optional binding method
                 if let sаfeData = data {
                     
                     //creating another const "WeatherModel" type to transfer data through delegate
-                    if let weather = self.parseJSON(weatherData: sаfeData) {
+                    if let weather = self.parseJSON(sаfeData) {
                         
                         //delegate method that transport data w/weather parameter
-                        self.delegate?.didUpdateWeather(weather: weather)
+                        self.delegate?.didUpdateWeather(self, weather: weather)
                     }
                 }
             }
@@ -61,8 +62,8 @@ struct WeatherManager {
         }
     }
     
-    //decoding JSON format into Swift programm language function
-    func parseJSON(weatherData: Data) -> WeatherModel? {
+    //decoding JSON format into Swift programming language function
+    func parseJSON(_ weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
@@ -73,7 +74,7 @@ struct WeatherManager {
             let weather = WeatherModel(conditionID: id, cityName: name, temperature: temp)
             return weather
         } catch {
-            print(error)
+            delegate?.didFailWithError(error: error)
             return nil
         }
     }

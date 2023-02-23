@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - Parsing structs
 struct WeatherData: Codable {
     let coord: Coord
     let weather: [Weather]
