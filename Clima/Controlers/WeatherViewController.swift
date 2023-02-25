@@ -117,6 +117,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
         print("Got location data")
         print(locations)
         if let location = locations.last {
+            locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
